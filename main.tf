@@ -5,6 +5,11 @@ terraform {
       version = "6.3.1"
     }
   }
+
+  backend "gcs" {
+    bucket  = "tf-github-repos-state"
+    prefix  = "terraform/state"
+  }
 }
 
 provider "github" {}
