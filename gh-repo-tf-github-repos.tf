@@ -28,6 +28,12 @@ resource "github_repository_ruleset" "tf-github-repos" {
     }
   }
 
+  bypass_actors {
+    actor_id    = 5
+    actor_type  = "RepositoryRole"
+    bypass_mode = "pull_request"
+  }
+
   rules {
     deletion         = true
     non_fast_forward = true
