@@ -1,10 +1,5 @@
-module "github_repository" {
-  source    = "./modules/gh-repo"
-  repo_name = "tf-repos"
-}
-
-resource "github_repository" "tf-github-repos" {
-  name          = "tf-github-repos"
+resource "github_repository" "gh-repo" {
+  name          = var.repo_name
   has_downloads = true
   has_issues    = true
   has_projects  = true
@@ -18,8 +13,8 @@ resource "github_repository" "tf-github-repos" {
   delete_branch_on_merge      = true
 }
 
-resource "github_repository_ruleset" "tf-github-repos" {
-  repository  = github_repository.tf-github-repos.name
+resource "github_repository_ruleset" "gh-repo-ruleset" {
+  repository  = var.repo_name
   name        = "Code Owner Approval"
   target      = "branch"
   enforcement = "active"
