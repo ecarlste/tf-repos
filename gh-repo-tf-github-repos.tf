@@ -17,7 +17,7 @@ resource "github_repository_ruleset" "tf-github-repos" {
   repository  = github_repository.tf-github-repos.name
   name        = "Code Owner Approval"
   target      = "branch"
-  enforcement = "disabled"
+  enforcement = "active"
 
   conditions {
     ref_name {
