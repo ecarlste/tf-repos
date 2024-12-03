@@ -14,8 +14,8 @@ resource "github_repository" "gh-repo" {
 }
 
 resource "github_repository_ruleset" "gh-repo-ruleset" {
-  repository  = var.repo_name
-  name        = "Code Owner Approval"
+  repository  = github_repository.gh-repo.name
+  name        = "${github_repository.gh-repo.name}: Code Owner Approval"
   target      = "branch"
   enforcement = "active"
 
