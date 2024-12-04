@@ -1,54 +1,9 @@
-module "github_repository" {
+module "tf_repos_github_repository" {
   source    = "./modules/gh-repo"
   repo_name = "tf-repos"
 }
 
-resource "github_repository" "tf-github-repos" {
-  name          = "tf-github-repos"
-  has_downloads = true
-  has_issues    = true
-  has_projects  = true
-  has_wiki      = true
-
-  allow_merge_commit          = false
-  allow_squash_merge          = true
-  allow_rebase_merge          = false
-  squash_merge_commit_title   = "PR_TITLE"
-  squash_merge_commit_message = "PR_BODY"
-  delete_branch_on_merge      = true
-}
-
-resource "github_repository_ruleset" "tf-github-repos" {
-  repository  = github_repository.tf-github-repos.name
-  name        = "Code Owner Approval"
-  target      = "branch"
-  enforcement = "active"
-
-  conditions {
-    ref_name {
-      exclude = []
-      include = [
-        "~DEFAULT_BRANCH",
-      ]
-    }
-  }
-
-  bypass_actors {
-    actor_id    = 5
-    actor_type  = "RepositoryRole"
-    bypass_mode = "pull_request"
-  }
-
-  rules {
-    deletion         = true
-    non_fast_forward = true
-
-    pull_request {
-      dismiss_stale_reviews_on_push     = false
-      require_code_owner_review         = true
-      require_last_push_approval        = true
-      required_approving_review_count   = 1
-      required_review_thread_resolution = true
-    }
-  }
+module "local_vagrant_cluster_github_repository" {
+  source    = "./modules/gh-repo"
+  repo_name = "local-vagrant-cluster"
 }
